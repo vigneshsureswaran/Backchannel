@@ -1,0 +1,34 @@
+<h3>Reports</h3>
+
+<fieldset></fieldset>
+<table>
+  <tr>
+    <th>Votes</th>
+    <th>Post</th>
+    <th>Author</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @posts.each do |post| %>
+
+
+  <tr>
+    <td><% @count_votes = Vote.find_all_by_post_id(post.id) %><%= @count_votes.length %>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+    <% if post.post_id == post.id %>
+    <td>&nbsp&nbsp&nbsp&nbsp&nbsp<%= post.post %>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+    <% else %>
+    <td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%= post.post %>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+    <% end %>
+    <td>&nbsp&nbsp&nbsp&nbsp&nbsp<%= post.user.username %>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+    </tr>
+
+<% end %>
+</table>
+
+
+<br />
+
+<%= link_to "Back", posts_path %>

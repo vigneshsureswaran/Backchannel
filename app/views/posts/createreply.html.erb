@@ -1,0 +1,22 @@
+<h3>Reply</h3>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <%= @post.post.to_s %>
+</p>
+<br />
+
+<%= form_tag posts_reply_path(:parent_post_id => @post.post_id) %>
+
+Post:
+<textarea id="post" name="post"></textarea>
+
+<br /><br />
+<input type="submit" value=" Submit " />
+
+<br /><br />
+
+<%= link_to 'Back', posts_path %>
+
+

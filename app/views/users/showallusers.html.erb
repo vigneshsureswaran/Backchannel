@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BackchannelTrial</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+
+</head>
+<body>
+
+<br />
+<p align="right">
+  <font color="#4169e1">
+<%= session[:name].to_s %>  </font>
+&nbsp&nbsp
+<%= link_to 'Sign Out', users_logout_path%>
+</p>
+<p>
+<!--Search:
+&nbsp&nbsp
+<%= text_field("search",:size=>"20" ) %>
+&nbsp&nbsp
+<input type="submit" value=" User " />
+&nbsp&nbsp
+<input type="submit" value=" Post " /> -->
+  <!--Search:-->
+  &nbsp&nbsp
+    <%= form_tag :action=>'searchByUser', :controller => 'posts'  do %>
+
+
+  Search by User
+  <%= text_field("search_user","username",:size=>"20" ) %>
+
+  <input type="submit" value=" Search " />
+
+
+  <% end -%>
+
+<br />
+
+      <%= form_tag :action=>'searchByText', :controller => 'posts'  do %>
+
+
+  Search by Text
+  <%= text_field("search_user","username",:size=>"20" ) %>
+
+  <input type="submit" value=" Search " />
+
+
+  <% end -%>
+
+
+</p>
+
+<br />
+
+<% if session[:admin].to_s == "Admin" %>
+<h3 align="center">Admin Dashboard</h3>
+<p align="center">
+<%= link_to 'Users', users_showallusers_path %>
+<%= link_to 'Reports', posts_report_path %>
+<% end %>
+</p>
+
+<br /><br />
+
+<h3>Show all Users</h3>
+
+<fieldset></fieldset> <br />
+
+<table>
+  <tr>
+    <th>Fullname</th>
+    <th>Username</th>
+    <th>Role</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @users.each do |user| %>
+
+  <tr>
+    <td><%= user.fullname %></td>
+    <td>&nbsp&nbsp&nbsp&nbsp&nbsp<%= user.username %>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+    <td>&nbsp&nbsp&nbsp&nbsp&nbsp<%= user.role %>&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+    <td>&nbsp&nbsp<%= link_to 'Edit', edit_user_path(user) %></td>
+    <% if user.role.to_s != "Admin" %>
+    <td>&nbsp&nbsp<%= link_to 'Delete', user, confirm: 'Are you sure?', method: :delete %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Back', posts_path %>
+
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,42 @@
+<h3>Replies</h3>
+
+<fieldset></fieldset>
+
+<p id="notice"><%= notice %></p>
+
+<b>Post:</b>
+
+    <% @posts.each do |post| %>
+
+    <% if post.post_id == post.id %><%= post.post.to_s %><% end %><br />
+    <% if post.post_id != post.id %>
+      <fieldset style="text-align: center">
+        <table width="100%">
+        <tr>
+        <td width="5%">
+        <table width="3%" border="1" rules="none"><tr align="center"><td>Votes</td></tr><tr align="center"><td><% @count_votes = Vote.find_all_by_post_id(post.id) %><%= @count_votes.length %></td></tr></table>
+        </td>
+        <td align="left"><b><u><%= post.user.username %></u></b>: <i><%= post.post %></i></td>
+        </tr>
+        <tr>
+          <td></td>
+         <td align="right">
+         <% if (post.user_id != session[:user_id]) %><%= link_to 'Vote', posts_countvotes_path(:id => post.id, :user_id => post.user_id) %><% end %>
+         <% if (post.user_id == session[:user_id]) || (session[:admin].to_s == "Admin") %><%= link_to 'Edit', edit_post_path(post) %><% end %>&nbsp&nbsp
+         <% if session[:admin].to_s == "Admin" %><%= link_to 'Delete', post, confirm: 'Are you sure?', method: :delete %><% end %>&nbsp&nbsp
+         <% if post.created_at.to_s == post.updated_at.to_s %>Created at:<%= post.created_at.to_s %><% else %>Updated at:<%= post.updated_at.to_s %><% end %>
+         </td>
+        </tr>
+        </table>
+
+      </fieldset>
+      <% end %>
+
+    <% end %>
+
+
+
+
+<br />
+
+<%= link_to 'Back', posts_path %>

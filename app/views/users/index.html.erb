@@ -1,0 +1,71 @@
+<br />
+<h3 align="center">Sign In</h3>
+
+<p id="notice"><font color="red"><%= notice %></font></p>
+
+<br />
+
+<%= form_tag :action=>'authenticate' do %>
+
+<fieldset style="text-align: center">
+<br />
+Username:
+<%= text_field("userform", "username",:size=>"20" ) %>
+<br /><br />
+Password:
+<%= password_field("userform", "password",:size=>"20" ) %>
+<br /><br />
+<input type="submit" value=" Login " />
+<br /><br />
+
+<br />
+
+<%= link_to 'New User', new_user_path %>
+&nbsp&nbsp&nbsp
+<%= link_to 'View Posts', posts_path %>
+
+</fieldset>
+<% end %>
+
+<br /><br />
+
+<fieldset style="text-align: center">
+<br />
+<!--Search:
+&nbsp&nbsp
+<%= text_field("search",:size=>"20", :placeholder=> "search") %>
+&nbsp&nbsp
+<input type="submit" value=" User " />
+&nbsp&nbsp
+<input type="submit" value=" Post " /> -->
+  <!--Search:-->
+  &nbsp&nbsp
+    <%= form_tag :action=>'searchByUser', :controller => 'posts'  do %>
+
+
+  Search by User
+  <%= text_field("search_user","username",:size=>"20" ) %>
+
+  <input type="submit" value=" Search " />
+
+
+  <% end -%>
+                   <br />
+
+      <%= form_tag :action=>'searchByText', :controller => 'posts'  do %>
+
+
+  Search by Text
+  <%= text_field("search_user","username",:size=>"20" ) %>
+
+  <input type="submit" value=" Search " />
+
+
+  <% end -%>
+
+
+
+<br /><br />
+</fieldset>
+
+
